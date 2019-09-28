@@ -11,9 +11,20 @@ class ProjectsTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
+    public function only_authenticated_users_can_create_projects()
+    {
+        // $this->withoutExceptionHandling();
+
+        $attributes = factory('App\Models\Project')->raw();
+        // $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
+
+    /** @test */
     public function a_user_can_create_a_project()
     {
         $this->withoutExceptionHandling();
+        $this->actingAs(factory('App\Models\User')->create());
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -26,16 +37,30 @@ class ProjectsTest extends TestCase
 
         $this->get('/projects')->assertSee($attributes['title']);
     }
-
+    /** @test */
+    public function a_user_can_view_a_project()
+    {
+        $this->withoutExceptionHandling();
+        $project = factory('App\Models\Project')->create();
+        $this->get($project->path())
+            ->assertSee($project->title)
+            ->assertSee($project->description);
+    }
     /** @test */
     public function a_project_require_a_title()
     {
-        $this->post('/projects', ['title' => null])->assertSessionHasErrors('title');
+        $this->actingAs(factory('App\Models\User')->create());
+        // Does not presist data: make and return an object
+        // Does presist data: create and return an object
+        // Does presist data: raw and return an array
+        $attributes = factory('App\Models\Project')->raw(['title' => null]);
+        $this->post('/projects', $attributes)->assertSessionHasErrors('title');
     }
 
     /** @test */
     public function a_project_require_a_description()
     {
+        $this->actingAs(factory('App\Models\User')->create());
         $this->post('/projects', ['description' => null])->assertSessionHasErrors('description');
     }
 }

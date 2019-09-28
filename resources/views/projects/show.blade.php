@@ -7,13 +7,7 @@
     <title>Projects</title>
 </head>
 <body>
-    <h1>Project Board</h1>
-    <ul>
-    @forelse ($projects as $project)
-    <li><a href="{{ $project->path() }}">{{ $project->title }}</a></li>
-    @empty
-        <p>No users</p>
-    @endforelse
-    </ul>
+    <h1>{{ $project->title }}</h1>
+    <p>{{ $project->description }}</p>
 </body>
 </html>
