@@ -12,7 +12,7 @@
     @forelse ($projects as $project)
     <li><a href="{{ $project->path() }}">{{ $project->title }}</a></li>
     @empty
-        <p>No users</p>
+        <li>You no have any ticket</li>
     @endforelse
     </ul>
 </body>
