@@ -1,37 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create - Projects</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"/>
-</head>
-<body>
-    <section class="section" style="padding-top: 40px;">
-        <div class="container">
-            <h1 class="heading is-1">Create a new project</h1>
-            <form method="POST" action="/projects">
-                @csrf
-                <div class="field">
-                    <label for="title" class="label">Title</label>
-                    <div class="control">
-                        <input class="input" type="text" name="title" placeholer="Title">
-                    </div>
-                </div>
-                <div class="field">
-                    <label for="description" class="label">Description</label>
-                    <div class="control">
-                        <textarea class="textarea" type="textarea" name="description"></textarea>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <button class="button is-link" type="submit">Create</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-</body>
-</html>
+@extends('layouts.app')
+@section('content')
+<h1 class="heading is-1">Create a new project</h1>
+<form method="POST" action="/projects">
+    @csrf
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" class="form-control" aria-describedby="title" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-large">Create</button>
+</form>
+@endsection

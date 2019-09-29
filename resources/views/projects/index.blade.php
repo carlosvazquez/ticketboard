@@ -1,19 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Projects</title>
-</head>
-<body>
-    <h1>Project Board</h1>
-    <ul>
+@extends('layouts.app')
+@section('content')
+<div class="flex item-center mb-3">
+    <a href="/projects/create" class="link">New project</a>
+</div>
+
+<div>
     @forelse ($projects as $project)
-    <li><a href="{{ $project->path() }}">{{ $project->title }}</a></li>
+    <div>
+        <h3 class="title">{{ $project->title }}</h3>
+        <div>
+            {{ $project->description }}
+        </div>
+    </div>
     @empty
-        <li>You no have any ticket</li>
+    <div>
+        <h3>You no have any ticket</h3>
+    </div>
     @endforelse
-    </ul>
-</body>
-</html>
+</div>
+
+@endsection
