@@ -11,28 +11,15 @@ class ManageProjectsTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
-    public function guess_can_not_create_projects()
+    public function guess_cannot_manage_projects()
     {
-        // $this->withoutExceptionHandling();
-
-        $attributes = factory('App\Models\Project')->raw();
-        // $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
-        $this->post('/projects', $attributes)->assertRedirect('login');
-    }
-
-    /** @test */
-    public function guess_may_not_view_projects()
-    {
-        // $this->withoutExceptionHandling();
-        $this->get('/projects')->assertRedirect('login');
-    }
-
-    /** @test */
-    public function guess_may_not_view_a_single_project()
-    {
-        // $this->withoutExceptionHandling();
         $project = factory('App\Models\Project')->create();
+        // $this->withoutExceptionHandling();
+        // $attributes = factory('App\Models\Project')->raw();
+        $this->get('/projects')->assertRedirect('login');
+        $this->post('/projects', $project->toArray())->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
+        // $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
     }
 
     /** @test */
