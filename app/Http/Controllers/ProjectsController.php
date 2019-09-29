@@ -30,6 +30,16 @@ class ProjectsController extends Controller
         return redirect('/projects');
     }
     /*
+    * Create project
+    *
+    * @return App\Models\Project $project
+    */
+    public function create()
+    {
+        return view('projects.create');
+    }
+
+    /*
     * php type hinting better than find or fail
     *
     * @param Project

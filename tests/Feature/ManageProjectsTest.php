@@ -17,8 +17,9 @@ class ManageProjectsTest extends TestCase
         // $this->withoutExceptionHandling();
         // $attributes = factory('App\Models\Project')->raw();
         $this->get('/projects')->assertRedirect('login');
-        $this->post('/projects', $project->toArray())->assertRedirect('login');
+        $this->get('/projects/create')->assertRedirect('login');
         $this->get($project->path())->assertRedirect('login');
+        $this->post('/projects', $project->toArray())->assertRedirect('login');
         // $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
     }
 
@@ -27,6 +28,7 @@ class ManageProjectsTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $this->actingAs(factory('App\Models\User')->create());
+        $this->get('/projects/create')->assertStatus(200);
 
         $attributes = [
             'title' => $this->faker->sentence,
