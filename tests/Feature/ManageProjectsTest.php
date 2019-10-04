@@ -27,7 +27,7 @@ class ManageProjectsTest extends TestCase
     public function a_user_can_create_a_project()
     {
         $this->withoutExceptionHandling();
-        $this->actingAs(factory('App\Models\User')->create());
+        $this->signIn();
         $this->get('/projects/create')->assertStatus(200);
 
         $attributes = [
@@ -45,7 +45,8 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_view_their_projects()
     {
-        $this->be(factory('App\Models\User')->create());
+        // $this->be(factory('App\Models\User')->create());
+        $this->signIn();
 
         $this->withoutExceptionHandling();
         $project = factory('App\Models\Project')->create(['owner_id' => auth()->id()]);
@@ -57,7 +58,7 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
-        $this->be(factory('App\Models\User')->create());
+        $this->signIn();
 
         // $this->withoutExceptionHandling();
         $project = factory('App\Models\Project')->create();
@@ -68,7 +69,7 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_project_require_a_title()
     {
-        $this->actingAs(factory('App\Models\User')->create());
+        $this->signIn();
         // Does not presist data: make and return an object
         // Does presist data: create and return an object
         // Does presist data: raw and return an array

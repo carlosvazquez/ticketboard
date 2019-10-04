@@ -24,7 +24,7 @@
 <body class="bg-grey-light">
     <div id="app">
         <nav class="bg-white">
-            <div class="container mx-auto">
+            <div class="container px-4 mx-auto">
                 <div class="flex justify-between item-center py-2">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img class="aaa" src="/images/logo.svg" alt="TicketBoard">
@@ -67,7 +67,7 @@
             </div>
         </nav>
 
-        <main class="container mx-auto py-4">
+        <main class="container mx-auto p-4">
             @yield('content')
         </main>
     </div>
