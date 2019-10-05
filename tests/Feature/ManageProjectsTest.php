@@ -22,6 +22,15 @@ class ManageProjectsTest extends TestCase
         $this->post('/projects', $project->toArray())->assertRedirect('login');
         // $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
     }
+    /** @test */
+    public function only_the_owner_of_a_project_may_add_tasks()
+    {
+        $this->signIn();
+        $project = factory('App\Models\Project')->create();
+        $this->post($project->path() . '/tasks', ['body' => 'Test task'])
+            ->assertStatus(403);
+        $this->assertDatabaseMissing('tasks', ['body' => 'Test task']);
+    }
 
     /** @test */
     public function a_user_can_create_a_project()
