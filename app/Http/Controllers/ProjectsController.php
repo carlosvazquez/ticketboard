@@ -9,6 +9,7 @@ class ProjectsController extends Controller
 {
     public function index()
     {
+        // $projects = auth()->user()->projects()->orderBy('updated_id', 'desc')->get();
         $projects = auth()->user()->projects;
         // $projects = Project::all();
 

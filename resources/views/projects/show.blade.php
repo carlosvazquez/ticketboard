@@ -13,6 +13,12 @@
             <div class="mb-8">
                 <h2 class="text-lg text-grey font-normal mb-3">Tasks</h2>
                 {{-- list tasks --}}
+                <div class="card mb-3">
+                    <form method="POST" action="{{ $project->path() . '/tasks' }}">
+                        @csrf
+                        <input class="form-control w-full" type="text" name="body" placeholder="Add new task">
+                    </form>
+                </div>
                 @foreach ($project->tasks as $task)
                 <div class="card mb-3">
                     <form method="POST" action="{{ $task->path() }}" class="form">
@@ -25,12 +31,6 @@
                     </form>
                 </div>
                 @endforeach
-                <div class="card mb-3">
-                    <form method="POST" action="{{ $project->path() . '/tasks' }}">
-                        @csrf
-                        <input class="form-control w-full" type="text" name="body" placeholder="Add new task">
-                    </form>
-                </div>
             </div>
             <div class="mb-6">
                 <h2 class="text-lg text-grey font-normal mb-3">General notes</h2>
